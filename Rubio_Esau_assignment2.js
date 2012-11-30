@@ -14,8 +14,6 @@ var say = function (what) {
 	console.log (what)
 };
 
-// Dynamic Variables
-
 // Procedure
 var meetUp = function (response) {
 	say("Hey, " + managerName + " can you meet me at " + jobName + "?" );
@@ -59,29 +57,43 @@ var quotedPrice = function (howMuch) {
 // String
 var cheapGuys = function ( guy1 , guy2 ) {
 	if ( canIDoIt === true ) {
-		var randomnumber = Math.floor(Math.random()*2)
+		var randomnumber = 1
 		if ( randomnumber === 0 ) {
 			say( supervisorName + ' says "Whoops! Hold on ' + guy1 + ' is calling me back from earlier."' );
-			var string = say( supervisorName + ' says "Whoa, sorry ' + guy1 + ' undercut you with $' + (howMuchIsIt + 1 ) +'."');
+			var string = say( supervisorName + ' says "Whoa, sorry ' + guy1 + ' undercut you with $' + (howMuchIsIt - 1 ) +'."');
 			string;
+			return string;
 		} else {
 			say( supervisorName + ' says "Whoops! Hold on ' + guy2 + ' is calling me back from earlier."' );
-			var string = say( supervisorName + ' says "Whoa, ' + guy2 + ' wanted the job at $' + (howMuchIsIt - 1 ) +'!"');
+			var string = say( supervisorName + ' says "Whoa, ' + guy2 + ' wanted the job at $' + (howMuchIsIt + 1 ) +'! He\'s crazy!"');
 			string;
+			return string;
 		};
 	};
-	return string
 };
 
 // Array
-var otherContractors = function () {
-
+var otherContractors = function ( howMuchIsIt , newContractors ) {
+	var otherPrices = [ (howMuchIsIt + 0.25) , (howMuchIsIt + 1.55) , (howMuchIsIt + 0.25) ];
+	say( supervisorName + ' says "Hold on let me get more quotes before I give you the job."');	
+		for ( contractors = 0 ; contractors < newContractors.length ; contractors++ ) {
+			if ( otherPrices[contractors] < howMuchIsIt ) {
+				say( supervisorName + ' says "' + newContractors[contractors] + ' Underground is cheaper? I am going with him.')
+				return otherPrices[contractors];
+			} else {
+				say( supervisorName + ' says "' + newContractors[contractors] + ' Underground is a no go!');
+			};
+		};
 };
 
-// Output
-
+// Returned Values
 meetUp( true );
 doJobNextWeek( true , 986 );
 quotedPrice( 8.75 );
 cheapGuys( "Jason" , "Bob" );
-otherContractors([ "Diggy" , "Driller" , "Dugger" ])
+otherContractors( howMuchIsIt , [ "Diggy" , "Driller" , "Dugger" ])
+if (doJobNextWeek = true) {
+	say("Congrats! You got the Job!")
+} else {
+	say("Sorry about the Job!")
+};
