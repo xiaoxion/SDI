@@ -1,38 +1,53 @@
-alert("JavaScript works!");
-
 // Author: Esau Rubio
 // 12/05/12
 // Project 3
-// Meeting With Supervisor
+// Supervisor Thoughts
 
 // Global Variables
 var supervisorName     = "Ray"                                  ,
 	managerName        = "Esau"                                 ,
 	supervisorMaxPrice = 8                                      ,
-	managerMinPrice    = 7                                      ,
 	footageCount       = 986                                    ,
-	otherCompanys      = [ "Digger" , "Driller" , "Dugger" ]    ,
 	say                = function (text) {console.log(text)}    ;
 
 // Main Object
-var getJob = {
-	meetUp: function (response) {
-			say("Hey, " + managerName + " can you meet me at " + jobName + "?" );
-		if (response === true) {
-			say( managerName + ' says "Yeah, I will be there in a few!"' );
-			say( managerName + ' arrives and asks "What do you need?"');
-		} else {
-			say( managerName + ' says "Not right now, what do you need?"' );
-		} 
-	}, // meetUp
-	canDoJobNextWeek: function (canI , footageCount) {
-			say( supervisorName + ' says "Well, I need a job with ' + footageCount + ' feet by next week. Think you can do it?"' );
-		if (canI === true) {
-			say( managerName + ' says "Sure! We should be able to do that!"' );
-		} else {
-			say( managerName + ' says "No, that won\'t be possible."' );
+var whoToGet = {
+	"loop": function () {
+		for (var key in otherCompanys.companys ) {
+			var comp = otherCompanys.companys[key];
 		};
-		var canIDoIt = canI;
-		return canIDoIt;
-	} // canDoJobNextWeek
+	}, // loop
+	"jobByDefault": function (otherCompanys) {
+		for (var key in otherCompanys.companys ) {
+			var comp = otherCompanys.companys[key];
+			if (comp.price < 6) {
+				say( supervisorName + ' says "Whoa! ' + comp.name + ' can do it at $' + comp.price + '! He\'s got the job!"');
+				var gotByDefault = true;
+			};
+		};
+		return gotByDefault
+	}, // jobByDefault
+	"recapOfCompany": function (comp) {
+		if (comp.canDoJob === true) {
+			say( supervisorName + ' thinks to himself "Hmm... ' + comp.name + ' Underground can do the job for $' + comp.price + '!"' );
+			if (comp.price < 8) {
+				say( supervisorName + ' thinks "Well that is a reasonable price."')
+			} else {
+				say( supervisorName + ' thinks "Maybe I can get him to lower it."')
+			};
+		} else {
+			say( supervisorName + ' thinks to himself "Bah! ' + comp.name + ' Underground can\'t even do the job!"' );
+		};
+	}, // recapOfCompanys
+	"whichCompanys": function (otherCompanys) {
+		say( supervisorName + ' gets back to his office and is thinking who to hire.')
+		for ( var key in otherCompanys.companys ) {
+			var comp = otherCompanys.companys[key]
+			whoToGet.recapOfCompany(comp);
+		};
+		return comp
+	}, //whichCompanys
 };
+
+whoToGet.jobByDefault(otherCompanys);
+whoToGet.whichCompanys(otherCompanys);
