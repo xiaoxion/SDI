@@ -33,8 +33,8 @@ var doJobNextWeek = function (canI , footageCount) {
 	} else {
 		say( managerName + ' says "No, that won\'t be possible."' );
 	};
-	canIDoIt = canI
-	return canI;
+	var canIDoIt = canI
+	return canIDoIt;
 };
 
 // Number
