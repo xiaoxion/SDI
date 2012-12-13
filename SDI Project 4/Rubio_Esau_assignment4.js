@@ -47,7 +47,6 @@ var options = {
 // String: Phone Number
 	"phone": function (user) {
 		var phoneNum = prompt( user + " please type in a Phone Number using this format \n xxx-xxx-xxxx");
-		say(phoneNum);
 		var areaCode = phoneNum.substring( 0 , phoneNum.indexOf("-") ) ,
 			prefix = phoneNum.substring( phoneNum.indexOf("-") + 1 , phoneNum.lastIndexOf("-") ) ,
 			suffix = phoneNum.substring( phoneNum.lastIndexOf("-") + 1 , phoneNum.length );
@@ -64,17 +63,44 @@ var options = {
 	},
 // String: URL
 	"url": function (user) {
-		say("URL Test");
+		var testingurl = prompt( user + " please type in a URL for testing. \n Please use the proper Http or Https prefixes.");
+		var checkHttp = testingurl.substring(0,7)
+			checkHttps = testingurl.substring(0,8)
+		if ( checkHttp.toLowerCase() === "http://" && testingurl.lastIndexOf(".") !== NaN ) {
+			say( "Congratulations " + testingurl + " is a valid URL")
+		} else if ( checkHttps.toLowerCase() === "https://" && testingurl.lastIndexOf(".") !== NaN ) {
+			say( "Congratulations " + testingurl + " is a valid and secure URL")
+		} else {
+			say("Sorry " + user + " that is not a valid URL.")
+		};
 		main.restart(user)
 	},
 // String: Seperator
 	"seperator": function (user) {
-		say("Seperator Test");
+		var toSeperate = prompt( user + ' please type THREE entries seperated by a comma.\n Please use this format \n xxx , xxx , xxx');
+		var	first  = toSeperate.substring( 0 , toSeperate.indexOf(",") ),
+			second = toSeperate.substring( toSeperate.indexOf(",") + 1 , toSeperate.lastIndexOf(",") ),
+			third  = toSeperate.substring( toSeperate.lastIndexOf(",") + 1 , toSeperate.length );
+		if ( toSeperate.indexOf(",") !== -1 && toSeperate.lastIndexOf(",") !== -1 && toSeperate.lastIndexOf(",") !== toSeperate.indexOf(",")) {
+			say( user + " here is the new output:\n " + first + "/" + second + "/" + third)
+		} else {
+			say( "Sorry " + user + " that input was invalid.")
+		};
 		main.restart(user)
 	},
 // Number: Decimal
 	"decimal": function (user) {
 		say("Decimal Test");
+		var toDecimal = prompt( user + ' please type in a decimal number and it will be converted to Money\n From x.xx to $x.xx')
+		var wholeNumber = toDecimal.substring( 0 , toDecimal.indexOf(".") ),
+			decimal = toDecimal.substring( toDecimal.indexOf(".") + 1 , toDecimal.indexOf(".") + 3 );
+		if ( toDecimal !== NaN && toDecimal.length >= toDecimal.indexOf(".") + 3 ) {
+
+		} else if ( toDecimal !== NaN ) {
+
+		} else {
+			say( "Sorry " + user + " that input was invalid.")
+		}
 		main.restart(user)
 	},
 // Number: Dates
