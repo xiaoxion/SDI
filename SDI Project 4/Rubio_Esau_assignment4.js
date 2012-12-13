@@ -121,6 +121,9 @@ var options = {
 			start = new Date(),
 			end   = new Date( year , month , day ),
 			oneHour = 1000 * 60 * 60;
+			say(parseInt(year))
+			say(parseInt(month))
+			say(parseInt(day))
 			if ( parseInt(year) !== NaN && parseInt(month) !== NaN && parseInt(day) !== NaN ) {
 				var differenceHour = Math.ceil(( end.getTime() - start.getTime() ) / (oneHour))
 				if ( differenceHour > 0 ) {
