@@ -14,7 +14,16 @@ var main = {
 		main.start(user);
 	},
 	"start": function (user) {
-		var opts = parseInt(prompt(user + " - Please choose an option.\n========================\n1 - Check Phone Number\n2 - Check URL Address\n3 - Use a new Seperator\n4 - Convert Decimal to Money\n5 - Find Hours Between Dates\n6 - Convert String Number to Actual Number\n7 - Find Total Value of numbers in a User generated Array\n8 - Exit\n"));
+		var opts = parseInt(prompt(user + " - Please choose an option.\n" +
+			"========================\n" +
+			"1 - Check Phone Number\n" +
+			"2 - Check URL Address\n" +
+			"3 - Use a new Seperator\n" +
+			"4 - Convert Decimal to Money\n" +
+			"5 - Find Hours Between Dates\n" +
+			"6 - Convert String Number to Actual Number\n" +
+			"7 - Find Total Value of numbers in a User generated Array\n" +
+			"8 - Exit\n"));
 		if ( opts > 0 && opts < 8 ) {
 			var optsArray = [ "phone" , "url" , "seperator" , "decimal" , "date" , "stringToNumber" , "totalValue" ];
 			options[optsArray[ opts - 1 ]](user)
@@ -25,7 +34,7 @@ var main = {
 		}
 	},
 	"restart": function (user) {
-		var cont = parseInt(prompt(user + " - Would you like to continue? \n 1 - To return to Main Menu \n 2 - to Exit" ));
+		var cont = parseInt(prompt(user + " - Would you like to continue? \n 1 - To return to Main Menu \n 2 - To Exit" ));
 		if (cont === 1) {
 			main.start(user)
 		} else if (cont === 2){
@@ -35,7 +44,7 @@ var main = {
 		};
 	},
 	"error": function (user) {
-		say( "Sorry, " + user + " that is not a valid option. Please try again.")
+		say( "Sorry " + user + " that is not a valid option. Please try again.")
 		main.start(user)
 	},
 	"quit": function (user) {
@@ -90,32 +99,66 @@ var options = {
 	},
 // Number: Decimal
 	"decimal": function (user) {
-		say("Decimal Test");
 		var toDecimal = prompt( user + ' please type in a decimal number and it will be converted to Money\n From x.xx to $x.xx')
 		var wholeNumber = toDecimal.substring( 0 , toDecimal.indexOf(".") ),
 			decimal = toDecimal.substring( toDecimal.indexOf(".") + 1 , toDecimal.indexOf(".") + 3 );
-		if ( toDecimal !== NaN && toDecimal.length >= toDecimal.indexOf(".") + 3 ) {
-
-		} else if ( toDecimal !== NaN ) {
-
+		if ( toDecimal !== NaN && toDecimal.indexOf(".") === -1 ) {
+			say( "Sorry " + user + " that input was not a decimal." );
+		} else if ( toDecimal !== NaN && toDecimal.length >= toDecimal.indexOf(".") + 3 && toDecimal.indexOf(".") === toDecimal.lastIndexOf(".") ) {
+			say( user + " here is the output in terms of money:\n$" + wholeNumber + "." + decimal );
+		} else if ( toDecimal !== NaN && toDecimal.length < toDecimal.indexOf(".") + 3 && toDecimal.indexOf(".") === toDecimal.lastIndexOf(".")) {
+			say( user + " here is the output in terms of money:\n$" + wholeNumber + "." + decimal + "0" );
 		} else {
-			say( "Sorry " + user + " that input was invalid.")
+			say( "Sorry " + user + " that input was invalid.");
 		}
 		main.restart(user)
 	},
 // Number: Dates
 	"date": function (user) {
-		say("Date Test");
+		var year = prompt( user + " this will test difference in dates from the local date to any date you choose.\n \nYear?  \nPlease use this format XXXX"),
+			month = prompt( "Month? \nPlease use this format XX"),
+			day   = prompt( "Date?  \nPlease use this format XX"),
+			start = new Date(),
+			end   = new Date( year , month , day ),
+			oneHour = 1000 * 60 * 60;
+			if ( parseInt(year) !== NaN && parseInt(month) !== NaN && parseInt(day) !== NaN ) {
+				var differenceHour = Math.ceil(( end.getTime() - start.getTime() ) / (oneHour))
+				if ( differenceHour > 0 ) {
+					say( "We are " + differenceHour + " hour(s) away from " + month + "/" + day + "/" + year + "." );
+				} else {
+					say( month + "/" + day + "/" + year + " was " + -differenceHour + " hour(s) ago.");
+				};
+			} else {
+				say( "Sorry " + user + " that is not a valid date.");
+			};
 		main.restart(user)
 	},
 // Number: String -> Number
 	"stringToNumber": function (user) {
-		say("String to Number Test");
+		var string = prompt( user + " this will convert a string input to a number and multiply it by 10.\n\nPlease use a number")
+		if ( !isNaN(parseInt(string))) {
+			say( "Here is the input: " + string )
+			say( "Here is the input multiplied by 10: " + ( string * 10 ))
+		} else {
+			say( "Sorry " + user + " that is not a numerical string." )
+		};
 		main.restart(user)
 	},
 // Array: Total Value
 	"totalValue": function (user) {
-		say("Total Value Test");
+		var loop = prompt( user + " type in anything and this script will identify and add all the numerical values.\n Type Q to add the values"),
+			emptyArray = [loop];
+		while ( loop.toLowerCase() !== "q" ) {
+			var loop = prompt( user + " type in anything and this script will identify and add all the numerical values.\n Type Q to add the values");
+			emptyArray.push(loop);
+		};
+		var number = 0
+		for ( var i = 0 ; i < emptyArray.length ; i++ ) {
+			if ( !isNaN(parseInt(emptyArray[i])) ) {
+				number = (number + parseInt(emptyArray[i]))
+			};
+		};
+		say( "The addition of all the numerical values is " + number )
 		main.restart(user)
 	}
 };
